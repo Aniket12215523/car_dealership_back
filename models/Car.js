@@ -11,6 +11,7 @@ const carSchema = new mongoose.Schema({
     topSpeed: String,
     acceleration: String,
   },
+  videoUrl: String
 });
 
 export default mongoose.model('Car', carSchema);
