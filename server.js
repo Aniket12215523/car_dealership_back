@@ -18,6 +18,7 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(express.json());
 
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);

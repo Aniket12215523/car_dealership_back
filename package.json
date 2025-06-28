@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
-  "scripts": {
-    "start": "node server.js",
-    "deploy": "curl -X POST 'https://api.render.com/deploy/srv-abc123xyz?key=abc123xyz987'"
-  },
+ "scripts": {
+  "start": "node server.js",
+  "deploy": "curl -X POST \"https://api.render.com/deploy/srv-d17a0godl3ps73a7auug?key=86Iwymo5GVU\""
+},
+
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
