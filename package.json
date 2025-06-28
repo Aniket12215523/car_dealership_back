@@ -4,7 +4,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "deploy": "curl -X POST 'https://api.render.com/deploy/srv-abc123xyz?key=abc123xyz987'"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
