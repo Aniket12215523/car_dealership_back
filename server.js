@@ -14,7 +14,8 @@ const app = express();
 const PORT = process.env.PORT ;
 
 app.use(cors({
-  origin: 'https://car-dealership-front.vercel.app/' 
+  origin: ['http://localhost:5173', 'https://car-dealership-front.vercel.app/'],
+  credentials: true
 }));
 
 
