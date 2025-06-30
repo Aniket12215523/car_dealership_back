@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 
 import carRoutes from './routes/cars.js';
@@ -19,11 +20,12 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads')));
+
 
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
-app.use('/api/auth', authRoutes);  
+app.use('/api/auth', authRoutes); 
+app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads'))); 
 
 
 mongoose.connect(process.env.MONGO_URI,)
