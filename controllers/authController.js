@@ -37,3 +37,26 @@ export const loginUser = async (req, res) => {
 };
 
 
+export const googleLogin = async (req, res) => {
+  const { name, email, profileImage, googleId } = req.body;
+  try {
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = await User.create({
+        name,
+        email,
+        googleId,
+        profileImage,
+      });
+    } else if (!user.profileImage && profileImage) {
+      user.profileImage = profileImage;
+      await user.save();
+    }
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    res.json({ token, user });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+

@@ -19,6 +19,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads')));
 
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
