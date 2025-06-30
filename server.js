@@ -8,6 +8,7 @@ import path from 'path';
 import carRoutes from './routes/cars.js';
 import bookingRoutes from './routes/booking.js';
 import authRoutes from './routes/authRoutes.js';
+import profileRoutes from './routes/profileRoutes.js';
 
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/auth', authRoutes); 
+app.use('/api/profile', profileRoutes);
 app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads'))); 
 
 
