@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import admin from '../firebase-admin.js';
+import admin from '../firebaseAdmin.js';
 export const registerUser = async (req, res) => {
   const { name, email, password, phone } = req.body;
 
