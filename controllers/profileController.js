@@ -2,7 +2,7 @@ import User from '../models/User.js';
 import multer from 'multer';
 import path from 'path';
 
-// Configure storage for profile images
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/uploads/');
@@ -14,10 +14,10 @@ const storage = multer.diskStorage({
   }
 });
 
-// Initialize multer with file filter
+
 export const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  limits: { fileSize: 5 * 1024 * 1024 }, 
   fileFilter: (req, file, cb) => {
     if (file.mimetype.startsWith('image/')) {
       cb(null, true);
@@ -27,7 +27,7 @@ export const upload = multer({
   }
 });
 
-// Get user profile
+
 export const getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select('-password -__v');
@@ -39,7 +39,7 @@ export const getProfile = async (req, res) => {
   }
 };
 
-// Update user profile
+
 export const updateProfile = async (req, res) => {
   const { name, phone, location, timezone, language, gender } = req.body;
   

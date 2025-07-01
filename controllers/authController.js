@@ -1,6 +1,7 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import admin from '../firebaseAdmin.js';
 
 export const registerUser = async (req, res) => {
   const { name, email, password, phone } = req.body;
@@ -36,27 +37,38 @@ export const loginUser = async (req, res) => {
   }
 };
 
-
+// ✅ Secure Google Login Controller
 export const googleLogin = async (req, res) => {
-  const { name, email, profileImage, googleId } = req.body;
+  const { idToken } = req.body;
+
   try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const { email, name, picture, uid } = decodedToken;
+
+    if (!email) {
+      return res.status(400).json({ message: 'Invalid Google token: no email' });
+    }
+
     let user = await User.findOne({ email });
+
     if (!user) {
       user = await User.create({
         name,
         email,
-        googleId,
-        profileImage,
+        googleId: uid,
+        profileImage: picture
       });
-    } else if (!user.profileImage && profileImage) {
-      user.profileImage = profileImage;
+    } else {
+      if (!user.googleId) user.googleId = uid;
+      if (!user.profileImage && picture) user.profileImage = picture;
       await user.save();
     }
+
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-    res.json({ token, user });
+
+    res.status(200).json({ token, user });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    console.error(err);
+    res.status(401).json({ message: 'Invalid Google token' });
   }
 };
-
-
