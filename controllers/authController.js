@@ -36,7 +36,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// ✅ Secure Google Login Controller
+
 export const googleLogin = async (req, res) => {
   const { idToken } = req.body;
 
