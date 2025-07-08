@@ -9,6 +9,7 @@ import carRoutes from './routes/cars.js';
 import bookingRoutes from './routes/booking.js';
 import authRoutes from './routes/authRoutes.js';
 import profileRoutes from './routes/profileRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/auth', authRoutes); 
 app.use('/api/profile', profileRoutes);
+app.use('/api/payment', paymentRoutes);
 app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads'))); 
 
 
