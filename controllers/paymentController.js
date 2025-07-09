@@ -30,7 +30,7 @@ export const createOrder = async (req, res) => {
   }
 };
 
-// Log transaction to DB
+
 export const recordTransaction = async (req, res) => {
   try {
     const transaction = await Transaction.create(req.body);
@@ -61,5 +61,34 @@ export const handleWebhook = (req, res) => {
   } else {
     console.warn('❌ Invalid Razorpay Webhook Signature');
     res.status(400).json({ error: 'Invalid signature' });
+  }
+};
+
+export const fetchOrders =  async (req, res) => {
+  try {
+    const orders = await Transaction.find({ userId: req.params.userId }).sort({ createdAt: -1 });
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch orders.' });
+  }
+};
+
+export const updateOrder = async (req, res) => {
+  try {
+    const updates = req.body;
+
+    await Transaction.findByIdAndUpdate(req.params.orderId, {
+      $set: {
+        'bookingDetails.date': updates.date,
+        'bookingDetails.time': updates.time,
+        'customer.address': updates.address,
+        'customer.phone': updates.phone,
+        status: updates.status
+      }
+    });
+
+    res.status(200).json({ success: true, message: 'Order updated.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update order.' });
   }
 };
