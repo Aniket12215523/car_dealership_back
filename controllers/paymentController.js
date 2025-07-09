@@ -41,7 +41,7 @@ export const recordTransaction = async (req, res) => {
   }
 };
 
-// Handle Razorpay Webhook
+
 export const handleWebhook = (req, res) => {
   const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
 
@@ -54,7 +54,7 @@ export const handleWebhook = (req, res) => {
     .digest('hex');
 
   if (signature === expectedSignature) {
-    console.log('✅ Valid Razorpay Webhook:', req.body);
+    console.log('Valid Razorpay Webhook:', req.body);
     res.status(200).json({ status: 'ok' });
 
    
