@@ -1,21 +1,19 @@
 import mongoose from 'mongoose';
 
 const bookingSchema = new mongoose.Schema({
-  carId: { type: mongoose.Schema.Types.ObjectId, ref: 'Car', required: true },
-  carName: String,
-  carPrice: Number,
-  image: String,
-  date: String,
-  time: String,
-  customer: {
-    name: String,
-    email: String,
-    phone: String,
-    address: String
-  },
-  createdAt: { type: Date, default: Date.now }
-});
+  userId: { type: String, required: true },
+  userName: { type: String, required: true },
+  userEmail: { type: String },
+  userPhone: { type: String },
+  carId: { type: String, required: true },
+  carName: { type: String, required: true },
+  carImage: { type: String },
+  amountPaid: { type: Number, required: true },
+  bookingDate: { type: String, required: true },
+  bookingTime: { type: String, required: true },
+  address: { type: String, required: true },
+  paymentId: { type: String, required: true },
+  status: { type: String, default: 'Confirmed' }
+}, { timestamps: true });
 
-const Booking = mongoose.model('Booking', bookingSchema);
-
-export default Booking;
+export default mongoose.model('Booking', bookingSchema);

@@ -1,5 +1,6 @@
 import Razorpay from 'razorpay';
 import Transaction from '../models/Transaction.js';
+import Booking from '../models/Booking.js';
 import dotenv from 'dotenv';
 import crypto from 'crypto';
 
@@ -10,7 +11,7 @@ const instance = new Razorpay({
   key_secret: process.env.RAZORPAY_SECRET
 });
 
-// Create Razorpay Order
+
 export const createOrder = async (req, res) => {
   try {
     const { amount, currency = 'INR', receipt } = req.body;
@@ -61,6 +62,16 @@ export const handleWebhook = (req, res) => {
   } else {
     console.warn('❌ Invalid Razorpay Webhook Signature');
     res.status(400).json({ error: 'Invalid signature' });
+  }
+};
+
+export const saveBooking = async (req, res) => {
+  try {
+    const booking = await Booking.create(req.body);
+    res.status(201).json({ success: true, booking });
+  } catch (error) {
+    console.error('Error saving booking:', error);
+    res.status(500).json({ error: 'Failed to save booking.' });
   }
 };
 
