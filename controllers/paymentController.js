@@ -3,6 +3,7 @@ import Transaction from '../models/Transaction.js';
 import Booking from '../models/Booking.js';
 import dotenv from 'dotenv';
 import crypto from 'crypto';
+import { sendBookingConfirmation } from '../utils/mailer.js';
 
 dotenv.config();
 
@@ -68,6 +69,7 @@ export const handleWebhook = (req, res) => {
 export const saveBooking = async (req, res) => {
   try {
     const booking = await Booking.create(req.body);
+    await sendBookingConfirmation(req.body.userEmail, booking);
     res.status(201).json({ success: true, booking });
   } catch (error) {
     console.error('Error saving booking:', error);
