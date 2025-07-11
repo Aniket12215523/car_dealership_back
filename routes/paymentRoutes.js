@@ -7,7 +7,7 @@ router.post('/create-order', createOrder);
 router.post('/record-transaction', recordTransaction);
 
 
-router.get('/my-bookings/:userId', fetchBookings);
+router.get('/my-bookings/:userId', fetchBookings)
 router.post('/save-order', saveBooking);
 router.patch('/update-order/:orderId', updateOrder);
 
