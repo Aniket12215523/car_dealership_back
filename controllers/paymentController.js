@@ -84,24 +84,24 @@ export const fetchBookings = async (req, res) => {
   }
 };
 
-
-
-export const updateOrder = async (req, res) => {
+export const deleteBooking = async (req, res) => {
   try {
-    const updates = req.body;
-
-    await Transaction.findByIdAndUpdate(req.params.orderId, {
-      $set: {
-        'bookingDetails.date': updates.date,
-        'bookingDetails.time': updates.time,
-        'customer.address': updates.address,
-        'customer.phone': updates.phone,
-        status: updates.status
-      }
-    });
-
-    res.status(200).json({ success: true, message: 'Order updated.' });
+    await Booking.findByIdAndDelete(req.params.bookingId);
+    res.status(200).json({ success: true, message: 'Booking deleted successfully.' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update order.' });
+    res.status(500).json({ error: 'Failed to delete booking.' });
+  }
+};
+
+
+
+export const updateBooking = async (req, res) => {
+  try {
+    await Booking.findByIdAndUpdate(req.params.bookingId, {
+      $set: req.body
+    });
+    res.status(200).json({ success: true, message: 'Booking updated.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update booking.' });
   }
 };
