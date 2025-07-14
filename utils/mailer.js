@@ -23,7 +23,7 @@ export const sendBookingConfirmation = async (toEmail, bookingDetails) => {
         <p style="font-size: 15px;">We're excited to let you know that your booking for <strong>${bookingDetails.carName}</strong> has been successfully confirmed!</p>
 
         <div style="text-align: center; margin: 20px 0;">
-          <img src="https://your-deployment-url.com${bookingDetails.carImage}" alt="${bookingDetails.carName}" style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">
+          <img src="https://car-dealership-front.vercel.app${bookingDetails.carImage}" alt="${bookingDetails.carName}" style="max-width: 300px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">
         </div>
 
         <h3 style="color: #444;">📄 Booking Details:</h3>
